@@ -147,7 +147,7 @@ h1, h2, h3, h4, h5, h6 {
     height: 100vh;
     width: 100%;
     min-height: 100vh;
-    background: url('https://cdn.pixabay.com/photo/2017/12/16/22/22/bora-bora-3023437_1280.jpg') no-repeat center center;
+    background: url('../assets/img/hero/main-hero.png') no-repeat center center;
     background-size: cover;
     background-attachment: fixed;
     color: var(--white-color);
@@ -272,22 +272,27 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Package Cards */
 .package-card {
+    position: relative;
     border-radius: 15px;
     overflow: hidden;
-    background: var(--white-color);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
 .package-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.2);
 }
 
 .package-card img {
     width: 100%;
     height: 250px;
     object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.package-card:hover img {
+    transform: scale(1.05);
 }
 
 .package-content {
@@ -318,7 +323,16 @@ h1, h2, h3, h4, h5, h6 {
     background: var(--white-color);
     border-radius: 15px;
     padding: 2rem;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.testimonial-image {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
 }
 
 .testimonial-content {
@@ -349,9 +363,10 @@ h1, h2, h3, h4, h5, h6 {
 /* CTA Section */
 .cta-section {
     position: relative;
-    background: url('https://cdn.pixabay.com/photo/2016/11/14/22/18/beach-1824855_1280.jpg') no-repeat center center;
+    background: url('../images/hero/cta-bg.jpg') no-repeat center center;
     background-size: cover;
     color: var(--white-color);
+    padding: 100px 0;
 }
 
 .cta-section .overlay {
@@ -681,6 +696,10 @@ h1, h2, h3, h4, h5, h6 {
 
     .carousel-caption p {
         font-size: 0.9rem;
+    }
+
+    .package-card img {
+        height: 200px;
     }
 }
 
@@ -1832,4 +1851,26 @@ h1, h2, h3, h4, h5, h6 {
 .fade-up.show {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Efectos de carga de imágenes */
+.image-loading {
+    position: relative;
+    background: #f0f0f0;
+}
+
+.image-loading::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+    animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
 } 

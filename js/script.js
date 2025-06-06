@@ -4,58 +4,40 @@ AOS.init({
     once: true
 });
 
-// Navbar Scroll Effect
-const navbar = document.querySelector('.navbar');
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-        navbar.classList.add('scrolled');
+// Lazy Loading para imágenes de contenido dinámico
+function initLazyLoading() {
+    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
+    if ('loading' in HTMLImageElement.prototype) {
+        lazyImages.forEach(img => {
+            if (img.dataset.src) {
+                img.src = img.dataset.src;
+            }
+        });
     } else {
-        navbar.classList.remove('scrolled');
+        // Fallback para navegadores que no soportan lazy loading
+        const lazyLoadScript = document.createElement('script');
+        lazyLoadScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
+        document.body.appendChild(lazyLoadScript);
     }
-});
+}
 
-// Back to Top Button
-const backToTopButton = document.getElementById('backToTop');
-
-window.addEventListener('scroll', () => {
-    if (window.scrollY > 300) {
-        backToTopButton.classList.add('show');
-    } else {
-        backToTopButton.classList.remove('show');
-    }
-});
-
-backToTopButton.addEventListener('click', () => {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-});
-
-// Smooth Scroll for Navigation Links
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function(e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-        }
-    });
+// Inicializar cuando el DOM esté listo
+document.addEventListener('DOMContentLoaded', () => {
+    initLazyLoading();
+    initNavbarScroll();
+    initBackToTop();
+    initNewsletterForm();
 });
 
 // Newsletter Form
 const newsletterForm = document.querySelector('.newsletter-form');
 if (newsletterForm) {
-    newsletterForm.addEventListener('submit', (e) => {
+    newsletterForm.addEventListener('submit', function(e) {
         e.preventDefault();
-        const email = newsletterForm.querySelector('input[type="email"]').value;
+        const email = this.querySelector('input[type="email"]').value;
         if (validateEmail(email)) {
-            // Aquí iría la lógica para enviar el email al servidor
             showToast('¡Gracias por suscribirte!', 'success');
-            newsletterForm.reset();
+            this.reset();
         } else {
             showToast('Por favor, ingresa un email válido', 'error');
         }
@@ -87,58 +69,54 @@ function showToast(message, type = 'info') {
     }, 3000);
 }
 
-// Add toast styles dynamically
-const toastStyles = document.createElement('style');
-toastStyles.textContent = `
-    .toast {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        padding: 1rem 2rem;
-        background: white;
-        color: #333;
-        border-radius: 5px;
-        box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        transform: translateY(100px);
-        opacity: 0;
-        transition: all 0.3s ease;
-        z-index: 9999;
-    }
-    .toast.show {
-        transform: translateY(0);
-        opacity: 1;
-    }
-    .toast-success {
-        background: #4CAF50;
-        color: white;
-    }
-    .toast-error {
-        background: #F44336;
-        color: white;
-    }
-    .toast-info {
-        background: #2196F3;
-        color: white;
-    }
-`;
-document.head.appendChild(toastStyles);
-
-// Image Lazy Loading
-document.addEventListener('DOMContentLoaded', () => {
-    const lazyImages = document.querySelectorAll('img[loading="lazy"]');
-    
-    if ('loading' in HTMLImageElement.prototype) {
-        lazyImages.forEach(img => {
-            img.src = img.dataset.src;
+// Navbar Scroll Effect
+function initNavbarScroll() {
+    const navbar = document.querySelector('.navbar');
+    if (navbar) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('navbar-scrolled');
+            } else {
+                navbar.classList.remove('navbar-scrolled');
+            }
         });
-    } else {
-        const lazyLoadScript = document.createElement('script');
-        lazyLoadScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/lazysizes/5.3.2/lazysizes.min.js';
-        document.body.appendChild(lazyLoadScript);
     }
+}
+
+// Back to Top Button
+function initBackToTop() {
+    const backToTop = document.getElementById('backToTop');
+    if (backToTop) {
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.classList.add('show');
+            } else {
+                backToTop.classList.remove('show');
+            }
+        });
+
+        backToTop.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    }
+}
+
+// Smooth Scroll for Navigation Links
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+            target.scrollIntoView({
+                behavior: 'smooth',
+                block: 'start'
+            });
+        }
+    });
 });
 
-// Mobile Menu Toggle Animation
+// Mobile Menu Animation
 const navbarToggler = document.querySelector('.navbar-toggler');
 if (navbarToggler) {
     navbarToggler.addEventListener('click', () => {
@@ -146,7 +124,7 @@ if (navbarToggler) {
     });
 }
 
-// Add animation styles for mobile menu toggle
+// Add animation styles
 const togglerStyles = document.createElement('style');
 togglerStyles.textContent = `
     .navbar-toggler.active {
@@ -155,21 +133,6 @@ togglerStyles.textContent = `
     }
 `;
 document.head.appendChild(togglerStyles);
-
-// Preloader
-window.addEventListener('load', () => {
-    const preloader = document.createElement('div');
-    preloader.className = 'preloader';
-    preloader.innerHTML = '<div class="spinner"></div>';
-    document.body.appendChild(preloader);
-
-    setTimeout(() => {
-        preloader.style.opacity = '0';
-        setTimeout(() => {
-            document.body.removeChild(preloader);
-        }, 300);
-    }, 500);
-});
 
 // Add preloader styles
 const preloaderStyles = document.createElement('style');
@@ -200,4 +163,4 @@ preloaderStyles.textContent = `
         100% { transform: rotate(360deg); }
     }
 `;
-document.head.appendChild(preloaderStyles); 
+document.head.appendChild(preloaderStyles);
