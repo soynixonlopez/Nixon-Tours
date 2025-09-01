@@ -46,7 +46,7 @@
                         <a class="nav-link" href="contact.html">Contacto</a>
                     </li>
                     <li class="nav-item ms-lg-3">
-                        <a href="https://wa.me/50769420000" target="_blank" class="btn btn-primary nav-btn">
+                        <a href="https://wa.me/50768252312" target="_blank" class="btn btn-primary nav-btn">
                             <i class="bi bi-whatsapp me-2"></i>Reserva Ya
                         </a>
                     </li>
@@ -140,6 +140,18 @@
                                             <label for="travelDate">Fecha de Viaje</label>
                                         </div>
                                     </div>
+                                    <div class="col-md-6">
+                                        <div class="form-floating">
+                                            <select class="form-select" id="departureTime" required>
+                                                <option value="">Seleccione horario</option>
+                                                <option value="8am">8:00 AM (Sin almuerzo incluido)</option>
+                                                <option value="3pm">3:00 PM (Almuerzo incluido +$10)</option>
+                                            </select>
+                                            <label for="departureTime">Horario de Salida</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row g-3 mt-2">
                                     <div class="col-md-6" id="nightsContainer" style="display: none;">
                                         <div class="form-floating">
                                             <input type="number" class="form-control" id="nights" min="1" value="1">
@@ -157,7 +169,7 @@
                                     <div class="col-md-6">
                                         <div class="form-floating">
                                             <input type="number" class="form-control" id="children" min="0" value="0">
-                                            <label for="children">Cantidad de Niños (menores de 12)</label>
+                                            <label for="children">Cantidad de Niños (menores de 5 años)</label>
                                         </div>
                                     </div>
                                 </div>
@@ -172,24 +184,24 @@
                                             <input type="radio" class="btn-check" name="cabinType" id="standard" value="standard" checked>
                                             <label class="cabin-option" for="standard">
                                                 <i class="bi bi-house"></i>
-                                                <span>Standard</span>
-                                                <small>Vista al Jardín</small>
+                                                <span>Estándar</span>
+                                                <small>Frente al Mar</small>
                                             </label>
                                         </div>
                                         <div class="col-md-4">
-                                            <input type="radio" class="btn-check" name="cabinType" id="superior" value="superior">
-                                            <label class="cabin-option" for="superior">
+                                            <input type="radio" class="btn-check" name="cabinType" id="oceanfront" value="oceanfront">
+                                            <label class="cabin-option" for="oceanfront">
                                                 <i class="bi bi-house-heart"></i>
-                                                <span>Superior</span>
-                                                <small>Vista Parcial al Mar</small>
+                                                <span>Orilla del Mar</span>
+                                                <small>Sin Balcón</small>
                                             </label>
                                         </div>
                                         <div class="col-md-4">
-                                            <input type="radio" class="btn-check" name="cabinType" id="deluxe" value="deluxe">
-                                            <label class="cabin-option" for="deluxe">
+                                            <input type="radio" class="btn-check" name="cabinType" id="oceanfront-balcony" value="oceanfront-balcony">
+                                            <label class="cabin-option" for="oceanfront-balcony">
                                                 <i class="bi bi-house-heart-fill"></i>
-                                                <span>Deluxe</span>
-                                                <small>Vista Completa al Mar</small>
+                                                <span>Orilla del Mar</span>
+                                                <small>Con Balcón</small>
                                             </label>
                                         </div>
                                     </div>
