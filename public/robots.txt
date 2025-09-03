@@ -1,0 +1,13 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://nixontours.vercel.app/sitemap.xml
+
+# Crawl-delay
+Crawl-delay: 1
+
+# Disallow admin panel for crawlers
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /auth/

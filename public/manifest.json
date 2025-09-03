@@ -1,0 +1,16 @@
+{
+  "name": "Nixon Tours - Guna Yala",
+  "short_name": "Nixon Tours",
+  "description": "Tu aventura en el Caribe Panameño con experiencias únicas y auténticas",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a237e",
+  "theme_color": "#2196f3",
+  "icons": [
+    {
+      "src": "/assets/img/hero/main-hero.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    }
+  ]
+}
